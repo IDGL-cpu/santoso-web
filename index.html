@@ -1,21 +1,510 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReviewSehatID</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
-        h1 { color: #2D7A4F; }
-        a { color: #2D7A4F; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReviewSehat Studio — AI TikTok Content for Health Affiliates</title>
+  <meta name="description" content="ReviewSehat Studio generates Indonesian TikTok voiceover scripts, captions, and promotional videos for health and beauty Shopee affiliates.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #e8481c;
+      --primary-dark: #c73a14;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --light: #f9fafb;
+      --border: #e5e7eb;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--white);
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text);
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 80px 40px 64px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff3f0;
+      color: var(--primary);
+      border: 1px solid #fcd5c9;
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 36px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* FEATURES */
+    .features {
+      background: var(--light);
+      padding: 64px 40px;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 48px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      background: #fff3f0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* HOW IT WORKS */
+    .how {
+      padding: 64px 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .how h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 48px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: left;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .step h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* PERKS */
+    .perks {
+      background: var(--light);
+      padding: 48px 40px;
+    }
+
+    .perks-inner {
+      max-width: 840px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .perk {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+
+    .perk-check {
+      color: var(--primary);
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .perk p {
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 56px 40px;
+    }
+
+    .cta-banner h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .cta-banner p {
+      font-size: 16px;
+      opacity: 0.85;
+      margin-bottom: 28px;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .btn-white:hover {
+      background: #f3f4f6;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 20px 40px; }
+      .hero h1 { font-size: 32px; }
+      .features { padding: 48px 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .perks-inner { grid-template-columns: 1fr; }
+      footer { padding: 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-    <h1>ReviewSehatID</h1>
-    <p>Platform for health & skincare product reviews and recommendations.</p>
-    <ul>
-        <li><a href="/tos.html">Terms of Service</a></li>
-        <li><a href="/privacy.html">Privacy Policy</a></li>
-    </ul>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-icon">✦</div>
+    ReviewSehat Studio
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="tos.html">Terms</a></li>
+  </ul>
+  <a href="https://affiliate-automation.replit.app/login" class="btn btn-primary">Log in →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">✦ Powered by Claude AI</div>
+  <h1>AI-powered TikTok content for health affiliates</h1>
+  <p>ReviewSehat Studio generates Indonesian TikTok voiceover scripts, captions, and promotional videos from your Shopee affiliate links — automatically scheduled across three daily posting slots.</p>
+  <div class="hero-cta">
+    <a href="https://affiliate-automation.replit.app/login" class="btn btn-primary">Open Studio →</a>
+    <a href="#how" class="btn btn-outline">See how it works</a>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <h2>Everything you need to scale affiliate content</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">✍️</div>
+      <h3>Auto-generate scripts</h3>
+      <p>Paste a Shopee link and get a complete voiceover script in seconds. Five structured scenes — hook, problem, solution, proof, CTA — written in natural Indonesian.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📅</div>
+      <h3>Schedule posts</h3>
+      <p>Content is automatically distributed across three daily slots — 07:00, 12:00, and 19:00 WIB — to maximize reach throughout the day.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📝</div>
+      <h3>AI captions</h3>
+      <p>Each script comes with an optimized caption and 10–15 relevant hashtags tailored to the Indonesian TikTok health and beauty community.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎬</div>
+      <h3>Video generation</h3>
+      <p>Product images from Shopee are automatically rendered into cinematic 9:16 vertical videos with text overlays, music, and Ken Burns effects.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <h3>Product library</h3>
+      <p>Save your best-performing Shopee products. The daily cron picks 9 products automatically and generates content for all three posting slots without any manual input.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Commission tracking</h3>
+      <p>Each entry tracks the affiliate commission rate so you always know which products deliver the best return per video produced.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Paste your link</h4>
+      <p>Drop any Shopee affiliate URL into the dashboard.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>AI generates content</h4>
+      <p>Claude writes a 5-scene voiceover script and caption in Indonesian.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Video renders</h4>
+      <p>Product photo is rendered into a cinematic 1080×1920 MP4 with music.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Post to TikTok</h4>
+      <p>Video is sent to your TikTok account via the Content Posting API.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PERKS -->
+<section class="perks">
+  <div class="perks-inner">
+    <div class="perk">
+      <span class="perk-check">✦</span>
+      <p>Voiceover-ready narration — no filming required</p>
+    </div>
+    <div class="perk">
+      <span class="perk-check">✦</span>
+      <p>Integrated with Shopee affiliate commission tracking</p>
+    </div>
+    <div class="perk">
+      <span class="perk-check">✦</span>
+      <p>Daily auto-generation from your saved product library</p>
+    </div>
+    <div class="perk">
+      <span class="perk-check">✦</span>
+      <p>Cloud video rendering from your product images</p>
+    </div>
+    <div class="perk">
+      <span class="perk-check">✦</span>
+      <p>Three scheduled posting slots per day — 07:00, 12:00, 19:00 WIB</p>
+    </div>
+    <div class="perk">
+      <span class="perk-check">✦</span>
+      <p>Content history with copyable scripts and captions</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Start generating content today</h2>
+  <p>Paste your first Shopee affiliate link and get a complete TikTok script in under 60 seconds.</p>
+  <a href="https://affiliate-automation.replit.app/login" class="btn btn-white">Open Studio →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 ReviewSehat Studio. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="tos.html">Terms of Service</a>
+    <a href="mailto:admin@santoso.me">Contact</a>
+  </div>
+</footer>
+
 </body>
 </html>
